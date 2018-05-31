@@ -1,0 +1,73 @@
+
+int main(){
+	int n,m,i,j,x;
+	s1(n);
+	VLL arr(n+1);
+	VLL srr(n+1);
+	bool sorted = true;
+	cin>>arr[1];
+	For1(i,2,n+1){
+		cin>>arr[i];
+		if(arr[i]<arr[i-1])
+			sorted = false;
+	}
+	srr = arr;
+	srr[0] = -1;
+	SortV(srr);
+	//pfArr(srr);
+	if(sorted){
+		pfs("yes");
+	}else{
+		int l = -1,r = -1;
+		For1(i,1,n+1){
+			if(arr[i]!=srr[i]){
+				l = i;
+				break;
+			}
+		}
+		For1e1r(i,n,0){
+			if(arr[i]!=srr[i]){
+				r = i;
+				break;
+			}
+		}
+		int temp = arr[l];
+		arr[l] = arr[r];
+		arr[r] = temp;
+		sorted = true;
+		For1(i,1,n){
+			if(arr[i]>arr[i+1]){
+				sorted = false;
+				break;
+			}
+		}
+		if(sorted){
+			pfs("yes\nswap ");
+			pf(l);
+			pfs(" ");
+			pf(r);
+		}else{
+			temp = arr[l];
+			arr[l] = arr[r];
+			arr[r] = temp;
+			//pf(l);pf(r);
+			reverse(arr.begin()+l,arr.begin()+r+1);
+			//pfArr(arr);
+			//pfs("\n");
+			sorted = true;
+			For1(i,1,n){
+				if(arr[i]>arr[i+1]){
+					sorted = false;
+					break;
+				}
+			}
+			if(sorted){
+				pfs("yes\nreverse ");
+				pf(l);pfs(" ");pf(r);
+			}else{
+				pfs("no");
+			}
+		}
+	}
+	return 0;
+}
